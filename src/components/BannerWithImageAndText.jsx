@@ -116,61 +116,6 @@ const BannerWithImageAndText = () => {
                     </svg>
                     <span ref={progressContent}></span>
                 </div>
-
-                {/* <SwiperSlide className="px-10">
-                    <div className="flex flex-cols md:flex-row justify-between items-center gap-20 relative md:static">
-                        <img src={rightPlaceImage} alt="Right Place Image" className="w-full md:w-1/2 opacity-60 md:opacity-100" />
-                        <div className="w-full md:w-1/2 absolute md:relative text-center md:text-left">
-                            <h1 className="text-6xl">
-                                You are in right place<span className={`text-[#5B54FA] ${isDarkMode && "text-white"}`}>.</span>
-                            </h1>
-                            <p className="text-gray-500">
-                                Welcome! You{"'"}re in the perfect spot to enhance your design skills. Our expert-led courses and resources will empower
-                                you to unlock your creative potential and master the art of design.
-                            </p>
-
-                            <img width={200} className="absolute -top-36 right-0 -z-10 opacity-50 hidden lg:block" src={blob02} alt="" />
-                            <img width={200} className="absolute -top-64 -left-32 -z-10 opacity-50 hidden lg:block" src={blob03} alt="" />
-                            <img width={200} className="absolute -z-10 opacity-50 hidden lg:block" src={blob04} alt="" />
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide className="px-10">
-                    <div className="flex flex-cols md:flex-row justify-between items-center gap-20 relative md:static">
-                        <img src={rightPlaceImage} alt="Right Place Image" className="w-full md:w-1/2 opacity-60 md:opacity-100" />
-                        <div className="w-full md:w-1/2 absolute md:relative text-center md:text-left">
-                            <h1 className="text-6xl">
-                                You are in right place<span className={`text-[#5B54FA] ${isDarkMode && "text-white"}`}>.</span>
-                            </h1>
-                            <p className="text-gray-500">
-                                Welcome! You{"'"}re in the perfect spot to enhance your design skills. Our expert-led courses and resources will empower
-                                you to unlock your creative potential and master the art of design.
-                            </p>
-
-                            <img width={200} className="absolute -top-32 right-0 -z-10 opacity-50 hidden lg:block" src={blob02} alt="" />
-                            <img width={200} className="absolute -top-64 -left-32 -z-10 opacity-50 hidden lg:block" src={blob03} alt="" />
-                            <img width={200} className="absolute -z-10 opacity-50 hidden lg:block" src={blob04} alt="" />
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide className="px-10">
-                    <div className="flex flex-cols md:flex-row justify-between items-center gap-20 relative md:static">
-                        <img src={rightPlaceImage} alt="Right Place Image" className="w-full md:w-1/2 opacity-60 md:opacity-100" />
-                        <div className="w-full md:w-1/2 absolute md:relative text-center md:text-left">
-                            <h1 className="text-6xl">
-                                You are in right place<span className={`text-[#5B54FA] ${isDarkMode && "text-white"}`}>.</span>
-                            </h1>
-                            <p className="text-gray-500">
-                                Welcome! You{"'"}re in the perfect spot to enhance your design skills. Our expert-led courses and resources will empower
-                                you to unlock your creative potential and master the art of design.
-                            </p>
-
-                            <img width={200} className="absolute -top-32 right-0 -z-10 opacity-50 hidden lg:block" src={blob02} alt="" />
-                            <img width={200} className="absolute -top-64 -left-32 -z-10 opacity-50 hidden lg:block" src={blob03} alt="" />
-                            <img width={200} className="absolute -z-10 opacity-50 hidden lg:block" src={blob04} alt="" />
-                        </div>
-                    </div>
-                </SwiperSlide> */}
             </Swiper>
         </>
     );
