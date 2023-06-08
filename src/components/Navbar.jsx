@@ -10,24 +10,23 @@ const Navbar = () => {
     const navOptions = (
         <>
             <li onClick={() => setCurrentRoute("home")} className={currentRoute == "home" ? `${activeRouteStyle}` : ""}>
-                <a>Home</a>
+                <Link to={"/home"}>Home</Link>
             </li>
 
             <li onClick={() => setCurrentRoute("instructors")} className={currentRoute == "instructors" ? `${activeRouteStyle}` : ""}>
-                <a>Instructors</a>
+                <Link to={"/instructors"}>Instructors</Link>
             </li>
 
             <li onClick={() => setCurrentRoute("classes")} className={currentRoute == "classes" ? `${activeRouteStyle}` : ""}>
-                <a>Classes</a>
+                <Link to={"classes"}>Classes</Link>
             </li>
 
             <li onClick={() => setCurrentRoute("dashboard")} className={currentRoute == "dashboard" ? `${activeRouteStyle}` : ""}>
-                <a>Dashboard</a>
+                <Link to={"dashboard"}>Dashboard</Link>
             </li>
         </>
     );
 
-    // TODO: Get theme from local storage
     useEffect(() => {
         const newTheme = isDarkMode === true ? "dark" : "emerald";
         document.documentElement.setAttribute("data-theme", newTheme);
