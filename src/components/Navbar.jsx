@@ -10,7 +10,7 @@ const Navbar = () => {
     const navOptions = (
         <>
             <li onClick={() => setCurrentRoute("home")} className={currentRoute == "home" ? `${activeRouteStyle}` : ""}>
-                <Link to={"/home"}>Home</Link>
+                <Link to={"/"}>Home</Link>
             </li>
 
             <li onClick={() => setCurrentRoute("instructors")} className={currentRoute == "instructors" ? `${activeRouteStyle}` : ""}>
@@ -46,6 +46,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <Link
+                    onClick={() => setCurrentRoute("home")}
                     to={"/"}
                     className="btn btn-ghost normal-case text-xl font-bagel bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">
                     DCras<span className={`text-[#4C3AE3] -ml-1 ${isDarkMode && "text-white"}`}>.</span>
@@ -72,7 +73,7 @@ const Navbar = () => {
 
                 <span className="mr-2"></span>
 
-                <Link to={"/login"}>
+                <Link onClick={() => setCurrentRoute("login")} to={"/login"}>
                     <button className="btn bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">Login</button>
                 </Link>
             </div>

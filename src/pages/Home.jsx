@@ -1,5 +1,11 @@
+import BannerWithImageAndText from "../components/BannerWithImageAndText";
+
 const Home = () => {
-    return <div></div>;
+    return (
+        <div>
+            <BannerWithImageAndText></BannerWithImageAndText>
+        </div>
+    );
 };
 
 export default Home;
