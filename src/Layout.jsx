@@ -11,11 +11,17 @@ const Layout = () => {
     }, []);
     return (
         <>
-            <Navbar />
+            <header className="sm:w-full lg:w-4/5 mx-auto">
+                <Navbar />
+            </header>
 
-            <Outlet />
+            <main className="sm:w-full lg:w-4/5 mx-auto">
+                <Outlet />
+            </main>
 
-            <Footer />
+            <footer className="sm:w-full lg:w-4/5 mx-auto">
+                <Footer />
+            </footer>
         </>
     );
 };

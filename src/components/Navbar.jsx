@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
     const [isDark, setDark] = useState(false);
+    const [currentRoute, setCurrentRoute] = useState("home");
+    const activeRouteStyle = "bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent font-bold";
 
     const navOptions = (
         <>
-            <li>
-                <a>Item 1</a>
+            <li onClick={() => setCurrentRoute("home")} className={currentRoute == "home" ? `${activeRouteStyle}` : ""}>
+                <a>Home</a>
             </li>
-            <li>
-                <a>Parent</a>
+            <li onClick={() => setCurrentRoute("instructors")} className={currentRoute == "instructors" ? `${activeRouteStyle}` : ""}>
+                <a>Instructors</a>
             </li>
-            <li>
-                <a>Item 3</a>
+            <li onClick={() => setCurrentRoute("classes")} className={currentRoute == "classes" ? `${activeRouteStyle}` : ""}>
+                <a>Classes</a>
             </li>
         </>
     );
