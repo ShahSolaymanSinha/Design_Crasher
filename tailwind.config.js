@@ -3,11 +3,15 @@
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                bagel: ["Bagel Fat One", "cursive"],
+            },
+        },
     },
-    darkMode: "class",
+    darkMode: "data-theme",
     daisyui: {
-        themes: ["light", "dark"],
+        themes: ["light", "dark", "emerald"],
     },
     plugins: [require("daisyui")],
 };
