@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/ThemeProvider";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const { isDarkMode, toggleTheme } = useContext(ThemeContext);
@@ -45,9 +46,11 @@ const Navbar = () => {
                         {navOptions}
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl font-bagel bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">
+                <Link
+                    to={"/"}
+                    className="btn btn-ghost normal-case text-xl font-bagel bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">
                     DCras<span className={`text-[#4C3AE3] -ml-1 ${isDarkMode && "text-white"}`}>.</span>
-                </a>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">{navOptions}</ul>
@@ -70,7 +73,9 @@ const Navbar = () => {
 
                 <span className="mr-2"></span>
 
-                <button className="btn bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">Login</button>
+                <Link to={"/login"}>
+                    <button className="btn bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">Login</button>
+                </Link>
             </div>
         </div>
     );
