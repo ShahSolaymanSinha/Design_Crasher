@@ -46,7 +46,6 @@ const BannerWithImageAndText = () => {
             });
     }, []);
 
-    console.log(bannerData);
     return (
         <>
             <Swiper
@@ -93,13 +92,13 @@ const BannerWithImageAndText = () => {
                     return (
                         <SwiperSlide key={banner.headerText} className="px-10 pt-5 sm:pt-0 md:pt-0 my-auto">
                             <div className="flex flex-cols md:flex-row justify-between items-center gap-20 relative md:static">
-                                <img src={bannerImage} alt="Right Place Image" className="w-full md:w-1/2 opacity-40 md:opacity-100" />
+                                <img src={bannerImage} alt="Right Place Image" className="w-full md:w-1/2 opacity-30 md:opacity-100" />
                                 <div className="w-full md:w-1/2 absolute md:relative text-center md:text-left my-auto">
                                     <h1 className={`text-4xl md:text-5xl lg:text-6xl ${isDarkMode && "text-white"}`}>
                                         {banner.headerText}
-                                        <span className={`text-[#5B54FA] ${isDarkMode && "text-white"}`}>.</span>
+                                        <span className={`text-[#D31A50] ${isDarkMode && "text-[#FF3C83]"}`}>.</span>
                                     </h1>
-                                    <p className={`text-gray-500 ${isDarkMode && "text-white"}`}>{banner.description}</p>
+                                    <p className={`text-gray-700 ${isDarkMode && "text-white"}`}>{banner.description}</p>
 
                                     <img width={200} className="absolute -top-36 right-0 -z-10 opacity-50 hidden lg:block" src={blob02} alt="" />
                                     <img width={200} className="absolute -top-64 -left-32 -z-10 opacity-50 hidden lg:block" src={blob03} alt="" />
