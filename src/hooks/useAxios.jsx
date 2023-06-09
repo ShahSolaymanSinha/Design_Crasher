@@ -2,7 +2,8 @@ import axios from "axios";
 
 const useAxios = () => {
     const instance = axios.create({
-        baseURL: "http://localhost:5000",
+        baseURL: "https://a12-server-side-mdsinha.vercel.app",
+        timeout: 100000,
     });
     return instance;
 };

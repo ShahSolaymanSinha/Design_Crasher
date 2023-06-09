@@ -38,7 +38,7 @@ const BannerWithImageAndText = () => {
 
     useEffect(() => {
         API.get("/bannerData")
-            .then(function (response) {
+            .then((response) => {
                 setBannerData(response.data);
             })
             .catch(function (error) {
@@ -55,7 +55,7 @@ const BannerWithImageAndText = () => {
                 mousewheel={true}
                 keyboard={true}
                 autoplay={{
-                    delay: 3000,
+                    delay: 7000,
                     disableOnInteraction: false,
                 }}
                 onAutoplayTimeLeft={onAutoplayTimeLeft}

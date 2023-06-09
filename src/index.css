@@ -62,3 +62,15 @@ span {
     stroke-dasharray: 125.6;
     transform: rotate(-90deg);
 }
+
+/* Scroll Progress Bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: #00ac61;
+    transform-origin: 0%;
+    z-index: 1000;
+}
