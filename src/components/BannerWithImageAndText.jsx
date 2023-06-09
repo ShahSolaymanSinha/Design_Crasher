@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Slide } from "react-awesome-reveal";
 
 // Import Swiper styles
 import "swiper/css";
@@ -22,11 +22,10 @@ import personalGoal from "../assets/personal-goals.svg";
 import blob02 from "../assets/blob-2.svg";
 import blob03 from "../assets/blob-3.svg";
 import blob04 from "../assets/blob-4.svg";
-import useAxios from "../hooks/useAxios";
+import { instance } from "../utils/axiosInstance";
 
 const BannerWithImageAndText = () => {
     const { isDarkMode } = useContext(ThemeContext);
-    const API = useAxios();
     const [bannerData, setBannerData] = useState([]);
 
     const progressCircle = useRef(null);
@@ -37,17 +36,14 @@ const BannerWithImageAndText = () => {
     };
 
     useEffect(() => {
-        API.get("/bannerData")
-            .then((response) => {
-                setBannerData(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        instance
+            .get("/bannerData")
+            .then((response) => setBannerData(response.data))
+            .catch((error) => console.log(error));
     }, []);
 
     return (
-        <>
+        <Slide direction="left" duration={1500} cascade>
             <Swiper
                 cssMode={true}
                 navigation={true}
@@ -116,7 +112,7 @@ const BannerWithImageAndText = () => {
                     <span ref={progressContent}></span>
                 </div>
             </Swiper>
-        </>
+        </Slide>
     );
 };
 

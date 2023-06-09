@@ -4,6 +4,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
+import Instructors from "../pages/Instructors";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,11 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
+            },
+            {
+                path: "/instructors",
+                element: <Instructors></Instructors>,
+                loader: () => fetch("http://localhost:5000/instructors"),
             },
             {
                 path: "/register",

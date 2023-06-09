@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import useAxios from "../hooks/useAxios";
 import { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "animate.css";
 
 // Import Swiper styles
 import "swiper/css";
@@ -10,19 +10,21 @@ import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper";
 import { ThemeContext } from "../providers/ThemeProvider";
+import { instance } from "../utils/axiosInstance";
+import { Slide } from "react-awesome-reveal";
 
 const PopularClasses = () => {
     const [classesData, setClassesData] = useState([]);
     const { isDarkMode } = useContext(ThemeContext);
-    const API = useAxios();
     const [slidesPerViewCustom, setSlidesPerViewCustom] = useState(0);
     const [screenWidth, setScreenWidth] = useState(0);
 
     useEffect(() => {
-        API.get("/popularClasses")
-            .then( (response) => {
+        instance
+            .get("/popularClasses")
+            .then((response) => {
                 console.log(response.data);
-                setClassesData( response.data);
+                setClassesData(response.data);
             })
             .catch((error) => console.log(error));
     }, []);
@@ -49,50 +51,52 @@ const PopularClasses = () => {
     }, []);
 
     return (
-        <>
+        <div>
             <div>
                 <h1 className="text-6xl text-center mb-5 text-[#50BB5D]">
                     Our Popular Classes<span className={`text-[#D31A50] ${isDarkMode && "text-[#FF3C83]"}`}>.</span>
                 </h1>
             </div>
-            <div className="mx-2">
-                <Swiper
-                    slidesPerView={slidesPerViewCustom}
-                    spaceBetween={30}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    autoplay={{
-                        delay: 5000,
-                        disableOnInteraction: false,
-                    }}
-                    modules={[Pagination, Autoplay]}
-                    className="mySwiper">
-                    {classesData?.slice(0, 6).map((classData) => {
-                        return (
-                            <SwiperSlide className="my-7" key={classData?.["course-info"]?.["name"]}>
-                                <div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
-                                    <figure>
-                                        <img className="w-full" src={classData?.["course-info"]?.["cover-image"]} alt="Shoes" />
-                                    </figure>
-                                    <div className="card-body">
-                                        <div>
-                                            <h2 className="card-title">{classData?.["course-info"]?.["name"]}</h2>
-                                            <p>{classData?.["course-info"]?.["description"]}</p>
-                                        </div>
-                                        <div className="card-actions">
-                                            <button className={`btn btn-primary w-full ${isDarkMode && "bg-[#00AC61]"} outline-none border-none`}>
-                                                Enroll Now
-                                            </button>
+            <Slide direction="right" duration={1000}>
+                <div className="mx-2">
+                    <Swiper
+                        slidesPerView={slidesPerViewCustom}
+                        spaceBetween={30}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        autoplay={{
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        }}
+                        modules={[Pagination, Autoplay]}
+                        className="mySwiper">
+                        {classesData?.slice(0, 6).map((classData) => {
+                            return (
+                                <SwiperSlide className="my-7" key={classData?.["course-info"]?.["name"]}>
+                                    <div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
+                                        <figure>
+                                            <img className="w-full" src={classData?.["course-info"]?.["cover-image"]} alt="Shoes" />
+                                        </figure>
+                                        <div className="card-body">
+                                            <div>
+                                                <h2 className="card-title">{classData?.["course-info"]?.["name"]}</h2>
+                                                <p>{classData?.["course-info"]?.["description"]}</p>
+                                            </div>
+                                            <div className="card-actions">
+                                                <button className={`btn btn-primary w-full ${isDarkMode && "bg-[#00AC61]"} outline-none border-none`}>
+                                                    Enroll Now
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </SwiperSlide>
-                        );
-                    })}
-                </Swiper>
-            </div>
-        </>
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
+                </div>
+            </Slide>
+        </div>
     );
 };
 
