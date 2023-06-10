@@ -1,13 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/ThemeProvider";
 import { Link, useLocation } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import { BounceLoader } from "react-spinners";
+import defaultUserLogo from "../assets/icons/user.svg";
 
 const Navbar = () => {
+    const { user, loading } = useContext(AuthContext);
     const { isDarkMode, toggleTheme } = useContext(ThemeContext);
     const activeRouteStyle = "bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent font-bold";
     const [currentPathname, setCurrentPathname] = useState(window.location.pathname);
     const location = useLocation();
-    console.log(location);
 
     const navOptions = (
         <>
@@ -23,9 +26,11 @@ const Navbar = () => {
                 <Link to={"/classes"}>Classes</Link>
             </li>
 
-            <li className={currentPathname == "/dashboard" ? `${activeRouteStyle}` : ""}>
-                <Link to={"/dashboard"}>Dashboard</Link>
-            </li>
+            {user && (
+                <li className={currentPathname == "/dashboard" ? `${activeRouteStyle}` : ""}>
+                    <Link to={"/dashboard"}>Dashboard</Link>
+                </li>
+            )}
         </>
     );
 
@@ -37,6 +42,10 @@ const Navbar = () => {
     useEffect(() => {
         setCurrentPathname(window.location.pathname);
     }, [location.pathname]);
+
+    if (loading) {
+        return <BounceLoader color="#36d7b7" />;
+    }
 
     return (
         <div className="navbar bg-base-100">
@@ -76,11 +85,19 @@ const Navbar = () => {
                     </svg>
                 </label>
 
-                <span className="mr-2"></span>
+                <span className="mr-4"></span>
 
-                <Link to={"/login"}>
-                    <button className="btn bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">Login</button>
-                </Link>
+                {user ? (
+                    <div className="avatar">
+                        <div className="w-12 rounded-full">
+                            <img src={user.photoURL ? user.photoURL : defaultUserLogo} />
+                        </div>
+                    </div>
+                ) : (
+                    <Link to={"/login"}>
+                        <button className="btn bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">Login</button>
+                    </Link>
+                )}
             </div>
         </div>
     );

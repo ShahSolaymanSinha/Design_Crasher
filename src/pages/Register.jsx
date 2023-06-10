@@ -154,6 +154,8 @@ const Register = () => {
                                                 title: "Yeah!",
                                                 text: "Your Account Created Successfully",
                                             });
+
+                                            navigate("/", { replace: true });
                                         })
                                         .catch((error) => {
                                             if (error.message == "Firebase: Error (auth/email-already-in-use).") {
