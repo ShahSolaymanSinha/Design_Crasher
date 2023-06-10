@@ -40,17 +40,19 @@ const router = createBrowserRouter([
                 element: <DashBoardPrivetRoute></DashBoardPrivetRoute>,
                 children: [
                     {
-                        path: "/dashboard",
-                        element: <SelectedClasses></SelectedClasses>,
-                    },
-                    {
                         path: "/dashboard/student/selectedClasses",
                         element: <SelectedClasses></SelectedClasses>,
                     },
-                    // {
-                    //     path: "/dashboard/student/enrolledClasses",
-                    //     element: <Classes></Classes>,
-                    // },
+                    {
+                        path: "/dashboard/student/enrolledClasses",
+                        element: <Classes></Classes>,
+                    },
+                    {
+                        path: "/dashboard/instructor/addAClass",
+                    },
+                    {
+                        path: "/dashboard/instructor/myClasses",
+                    },
                 ],
             },
         ],
