@@ -11,6 +11,7 @@ import { Pagination, Autoplay } from "swiper";
 import { ThemeContext } from "../providers/ThemeProvider";
 import { instance } from "../utils/axiosInstance";
 import { Slide } from "react-awesome-reveal";
+import LazyLoadImage from "./LazyLoadImage";
 
 const PopularInstructors = () => {
     const [instructorsData, setInstructorsData] = useState([]);
@@ -74,9 +75,7 @@ const PopularInstructors = () => {
                             return (
                                 <SwiperSlide className="my-7" key={instructorData?.["name"]}>
                                     <div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
-                                        <figure>
-                                            <img className="w-full" src={instructorData?.["image"]} alt="Shoes" />
-                                        </figure>
+                                        <LazyLoadImage src={instructorData?.["image"]} alt={instructorData?.["name"]}></LazyLoadImage>
                                         <div className="card-body">
                                             <div>
                                                 <h2 className="card-title">{instructorData?.["name"]}</h2>

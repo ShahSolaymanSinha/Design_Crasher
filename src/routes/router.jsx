@@ -5,6 +5,8 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Instructors from "../pages/Instructors";
+import Classes from "../pages/Classes";
+import PrivetRoute from "../privetRouters/PrivetRoute";
 
 const router = createBrowserRouter([
     {
@@ -18,8 +20,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/instructors",
-                element: <Instructors></Instructors>,
-                loader: () => fetch("http://localhost:5000/instructors"),
+                element: (
+                    <PrivetRoute>
+                        <Instructors></Instructors>
+                    </PrivetRoute>
+                ),
+            },
+            {
+                path: "/classes",
+                element: <Classes></Classes>,
             },
             {
                 path: "/register",

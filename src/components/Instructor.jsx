@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 
+import LazyLoadImage from "./LazyLoadImage";
+
 const Instructor = ({ image, name, email }) => {
     return (
-        <div className={`card w-96 bg-base-100 shadow-xl h-full`}>
-            <figure>
-                <img className="w-full" src={image} alt="Shoes" />
-            </figure>
+        <div className={`card w-96 bg-base-100 shadow-xl h-full mx-auto`}>
+            <LazyLoadImage src={image} alt={name}></LazyLoadImage>
             <div className="card-body">
                 <div>
                     <h2 className="card-title">{name}</h2>

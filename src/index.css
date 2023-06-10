@@ -72,5 +72,5 @@ span {
     height: 5px;
     background: #00ac61;
     transform-origin: 0%;
-    z-index: 1000;
+    z-index: 100;
 }

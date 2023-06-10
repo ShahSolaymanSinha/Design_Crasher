@@ -4,18 +4,29 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../providers/ThemeProvider";
 import googleIcon from "../assets/icons/google.svg";
-import facebookIcon from "../assets/icons/facebook.svg";
-import microsoftIcon from "../assets/icons/microsoft.svg";
-import appleIcon from "../assets/icons/apple.svg";
+import githubIcon from "../assets/icons/github.svg";
 import eyeOpenIcon from "../assets/icons/eye-open.svg";
 import eyeCloseIcon from "../assets/icons/eye-close.svg";
 import { motion } from "framer-motion";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
+    const { signInWithGoogle } = useContext(AuthContext);
+
     const { register, handleSubmit } = useForm();
     const { isDarkMode } = useContext(ThemeContext);
     const [isEyeOpen, setIsEyeOpen] = useState(false);
 
+    const handleGoogleLoginIn = () => {
+        signInWithGoogle()
+            .then((result) => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     const onSubmit = (data) => console.log(data);
     return (
         <motion.div initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
@@ -27,18 +38,12 @@ const Login = () => {
                 <div className="flex flex-col w-full md:w-1/2">
                     <form className={`w-11/12 md:w-3/5 mx-auto`} onSubmit={handleSubmit(onSubmit)}>
                         <h1 className="text-3xl text-center font-bold mb-5">Sign In to Design Crasher</h1>
-                        <div className="flex justify-between w-1/2 mx-auto mb-10">
-                            <Link>
+                        <div className="flex gap-5 justify-center w-1/2 mx-auto mb-10">
+                            <Link onClick={handleGoogleLoginIn}>
                                 <img width={32} src={googleIcon} alt="" />
                             </Link>
                             <Link>
-                                <img width={32} src={microsoftIcon} alt="" />
-                            </Link>
-                            <Link>
-                                <img width={32} src={appleIcon} alt="" />
-                            </Link>
-                            <Link>
-                                <img width={32} src={facebookIcon} alt="" />
+                                <img width={32} src={githubIcon} alt="" />
                             </Link>
                         </div>
 

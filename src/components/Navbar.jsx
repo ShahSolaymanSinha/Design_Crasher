@@ -1,28 +1,30 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/ThemeProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
     const { isDarkMode, toggleTheme } = useContext(ThemeContext);
-    const [currentRoute, setCurrentRoute] = useState("home");
     const activeRouteStyle = "bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent font-bold";
+    const [currentPathname, setCurrentPathname] = useState(window.location.pathname);
+    const location = useLocation();
+    console.log(location);
 
     const navOptions = (
         <>
-            <li onClick={() => setCurrentRoute("home")} className={currentRoute == "home" ? `${activeRouteStyle}` : ""}>
+            <li className={currentPathname == "/" ? `${activeRouteStyle}` : ""}>
                 <Link to={"/"}>Home</Link>
             </li>
 
-            <li onClick={() => setCurrentRoute("instructors")} className={currentRoute == "instructors" ? `${activeRouteStyle}` : ""}>
+            <li className={currentPathname == "/instructors" ? `${activeRouteStyle}` : ""}>
                 <Link to={"/instructors"}>Instructors</Link>
             </li>
 
-            <li onClick={() => setCurrentRoute("classes")} className={currentRoute == "classes" ? `${activeRouteStyle}` : ""}>
-                <Link to={"classes"}>Classes</Link>
+            <li className={currentPathname == "/classes" ? `${activeRouteStyle}` : ""}>
+                <Link to={"/classes"}>Classes</Link>
             </li>
 
-            <li onClick={() => setCurrentRoute("dashboard")} className={currentRoute == "dashboard" ? `${activeRouteStyle}` : ""}>
-                <Link to={"dashboard"}>Dashboard</Link>
+            <li className={currentPathname == "/dashboard" ? `${activeRouteStyle}` : ""}>
+                <Link to={"/dashboard"}>Dashboard</Link>
             </li>
         </>
     );
@@ -31,6 +33,10 @@ const Navbar = () => {
         const newTheme = isDarkMode === true ? "dark" : "emerald";
         document.documentElement.setAttribute("data-theme", newTheme);
     }, [isDarkMode]);
+
+    useEffect(() => {
+        setCurrentPathname(window.location.pathname);
+    }, [location.pathname]);
 
     return (
         <div className="navbar bg-base-100">
@@ -41,12 +47,11 @@ const Navbar = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                         </svg>
                     </label>
-                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50">
                         {navOptions}
                     </ul>
                 </div>
                 <Link
-                    onClick={() => setCurrentRoute("home")}
                     to={"/"}
                     className="btn btn-ghost normal-case text-xl font-bagel bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">
                     DCras<span className={`text-[#4C3AE3] -ml-1 ${isDarkMode && "text-white"}`}>.</span>
@@ -73,7 +78,7 @@ const Navbar = () => {
 
                 <span className="mr-2"></span>
 
-                <Link onClick={() => setCurrentRoute("login")} to={"/login"}>
+                <Link to={"/login"}>
                     <button className="btn bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent">Login</button>
                 </Link>
             </div>
