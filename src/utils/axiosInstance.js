@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://a12-server-side-livid.vercel.app",
+    baseURL: "http://localhost:5000",
+    headers: {
+        "Content-Type": "application/json",
+    },
     timeout: 5000,
     retry: 5, // Number of retries
     retryDelay: 1000, // Delay between retries in milliseconds

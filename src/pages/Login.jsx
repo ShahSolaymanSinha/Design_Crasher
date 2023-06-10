@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import loginImage from "../assets/login.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../providers/ThemeProvider";
 import googleIcon from "../assets/icons/google.svg";
@@ -9,9 +9,12 @@ import eyeOpenIcon from "../assets/icons/eye-open.svg";
 import eyeCloseIcon from "../assets/icons/eye-close.svg";
 import { motion } from "framer-motion";
 import { AuthContext } from "../providers/AuthProvider";
+import { instance } from "../utils/axiosInstance";
+import Swal from "sweetalert2";
 
 const Login = () => {
-    const { signInWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const { signInWithGoogle, signInWithGithub, signIn } = useContext(AuthContext);
 
     const { register, handleSubmit } = useForm();
     const { isDarkMode } = useContext(ThemeContext);
@@ -20,14 +23,72 @@ const Login = () => {
     const handleGoogleLoginIn = () => {
         signInWithGoogle()
             .then((result) => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
+                const loggedInUser = result.user;
+                const data = {
+                    uid: loggedInUser.uid,
+                    name: loggedInUser.displayName,
+                    email: loggedInUser.email,
+                    emailVerified: loggedInUser.emailVerified,
+                    photo: loggedInUser.photoURL,
+                };
+
+                instance
+                    .post("/saveUser", data)
+                    .then((res) => console.log(res.data))
+                    .catch((error) => console.log(error));
+
+                navigate("/", { replace: true });
             })
             .catch((error) => {
                 console.log(error);
             });
     };
-    const onSubmit = (data) => console.log(data);
+
+    const handleGithubLogIn = () => {
+        signInWithGithub()
+            .then((result) => {
+                const loggedInUser = result.user;
+                const data = {
+                    uid: loggedInUser.uid,
+                    name: loggedInUser.displayName,
+                    email: loggedInUser.email,
+                    emailVerified: loggedInUser.emailVerified,
+                    photo: loggedInUser.photoURL,
+                };
+
+                instance
+                    .post("/saveUser", data)
+                    .then((res) => console.log(res.data))
+                    .catch((error) => console.log(error));
+
+                navigate("/", { replace: true });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const onSubmit = (data) => {
+        const { email, password } = data;
+        signIn(email, password).catch((error) => {
+            console.log(error.message);
+            if (error.message == "Firebase: Error (auth/wrong-password).") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Wrong Password",
+                });
+            }
+
+            if (error.message == "Firebase: Error (auth/user-not-found).") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "User Doesn't Exists",
+                });
+            }
+        });
+    };
     return (
         <motion.div initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <div className="h-screen w-full flex justify-between items-center gap-20">
@@ -42,7 +103,7 @@ const Login = () => {
                             <Link onClick={handleGoogleLoginIn}>
                                 <img width={32} src={googleIcon} alt="" />
                             </Link>
-                            <Link>
+                            <Link onClick={handleGithubLogIn}>
                                 <img width={32} src={githubIcon} alt="" />
                             </Link>
                         </div>
