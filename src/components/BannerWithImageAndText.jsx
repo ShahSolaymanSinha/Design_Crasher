@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 // import required modules
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { ThemeContext } from "../providers/ThemeProvider";
 
 import rightPlaceImage from "../assets/right-place.svg";
@@ -23,10 +23,24 @@ import blob02 from "../assets/blob-2.svg";
 import blob03 from "../assets/blob-3.svg";
 import blob04 from "../assets/blob-4.svg";
 import { instance } from "../utils/axiosInstance";
+import { useQuery } from "@tanstack/react-query";
+import { BounceLoader } from "react-spinners";
 
 const BannerWithImageAndText = () => {
     const { isDarkMode } = useContext(ThemeContext);
-    const [bannerData, setBannerData] = useState([]);
+
+    const {
+        data: bannerData,
+        isLoading,
+        isError,
+        error,
+    } = useQuery({
+        queryKey: ["bannerDataKey"],
+        queryFn: async () => {
+            const response = await instance.get("/bannerData");
+            return response.data;
+        },
+    });
 
     const progressCircle = useRef(null);
     const progressContent = useRef(null);
@@ -35,12 +49,13 @@ const BannerWithImageAndText = () => {
         progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
     };
 
-    useEffect(() => {
-        instance
-            .get("/bannerData")
-            .then((response) => setBannerData(response.data))
-            .catch((error) => console.log(error));
-    }, []);
+    if (isLoading) {
+        return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
+    }
+
+    if (isError) {
+        console.log(error);
+    }
 
     return (
         <Slide direction="left" duration={1500} cascade>
@@ -60,29 +75,14 @@ const BannerWithImageAndText = () => {
                 {bannerData?.map((banner) => {
                     let bannerImage;
                     if (banner.headerText == "You are in right place") {
-                        {
-                            /* setCurrentImage(rightPlaceImage); */
-                        }
                         bannerImage = rightPlaceImage;
                     } else if (banner.headerText == "We have best Designer community") {
-                        {
-                            /* setCurrentImage(designersCommunity); */
-                        }
                         bannerImage = designersCommunity;
                     } else if (banner.headerText == "Learn trending designing tools") {
-                        {
-                            /* setCurrentImage(designingTools); */
-                        }
                         bannerImage = designingTools;
                     } else if (banner.headerText == "Stick on track with our progress tracker") {
-                        {
-                            /* setCurrentImage(progressTracker); */
-                        }
                         bannerImage = progressTracker;
                     } else {
-                        {
-                            /* setCurrentImage(personalGoal); */
-                        }
                         bannerImage = personalGoal;
                     }
                     return (

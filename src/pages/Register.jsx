@@ -53,6 +53,7 @@ const Register = () => {
                     email: loggedInUser.email,
                     emailVerified: loggedInUser.emailVerified,
                     photo: loggedInUser.photoURL,
+                    role: "student",
                 };
 
                 instance
@@ -77,6 +78,7 @@ const Register = () => {
                     email: loggedInUser.email,
                     emailVerified: loggedInUser.emailVerified,
                     photo: loggedInUser.photoURL,
+                    role: "student",
                 };
 
                 instance
@@ -141,6 +143,7 @@ const Register = () => {
                                                 email: registeredUser.email,
                                                 emailVerified: registeredUser.emailVerified,
                                                 photo: imageData.data.display_url,
+                                                role: "student",
                                             };
 
                                             // CALLING API TO STORE USER DATA

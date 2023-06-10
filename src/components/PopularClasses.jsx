@@ -13,22 +13,26 @@ import { ThemeContext } from "../providers/ThemeProvider";
 import { instance } from "../utils/axiosInstance";
 import { Slide } from "react-awesome-reveal";
 import LazyLoadImage from "./LazyLoadImage";
+import { useQuery } from "@tanstack/react-query";
+import { BounceLoader } from "react-spinners";
 
 const PopularClasses = () => {
-    const [classesData, setClassesData] = useState([]);
     const { isDarkMode } = useContext(ThemeContext);
     const [slidesPerViewCustom, setSlidesPerViewCustom] = useState(0);
     const [screenWidth, setScreenWidth] = useState(0);
 
-    useEffect(() => {
-        instance
-            .get("/popularClasses")
-            .then((response) => {
-                console.log(response.data);
-                setClassesData(response.data);
-            })
-            .catch((error) => console.log(error));
-    }, []);
+    const {
+        data: classesData,
+        isLoading,
+        isError,
+        error,
+    } = useQuery({
+        queryKey: ["classesDataKey"],
+        queryFn: async () => {
+            const response = await instance.get("/popularClasses");
+            return response.data;
+        },
+    });
 
     useEffect(() => {
         if (screenWidth < 640) {
@@ -50,6 +54,14 @@ const PopularClasses = () => {
 
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    if (isLoading) {
+        return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
+    }
+
+    if (isError) {
+        console.log(error);
+    }
 
     return (
         <div>

@@ -6,7 +6,8 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Instructors from "../pages/Instructors";
 import Classes from "../pages/Classes";
-import PrivetRoute from "../privetRouters/PrivetRoute";
+import DashBoardPrivetRoute from "../privetRouters/DashBoardPrivetRoute";
+import SelectedClasses from "../components/SelectedClasses";
 
 const router = createBrowserRouter([
     {
@@ -20,24 +21,37 @@ const router = createBrowserRouter([
             },
             {
                 path: "/instructors",
-                element: (
-                    <PrivetRoute>
-                        <Instructors></Instructors>
-                    </PrivetRoute>
-                ),
+                element: <Instructors></Instructors>,
             },
             {
                 path: "/classes",
-                element: <Classes></Classes>,
+                element: <Classes style={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20"}></Classes>,
             },
             {
                 path: "/register",
                 element: <Register></Register>,
             },
-
             {
                 path: "/login",
                 element: <Login></Login>,
+            },
+            {
+                path: "/dashboard",
+                element: <DashBoardPrivetRoute></DashBoardPrivetRoute>,
+                children: [
+                    {
+                        path: "/dashboard",
+                        element: <SelectedClasses></SelectedClasses>,
+                    },
+                    {
+                        path: "/dashboard/student/selectedClasses",
+                        element: <SelectedClasses></SelectedClasses>,
+                    },
+                    // {
+                    //     path: "/dashboard/student/enrolledClasses",
+                    //     element: <Classes></Classes>,
+                    // },
+                ],
             },
         ],
     },

@@ -8,7 +8,7 @@ const PrivetRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {
-        return <BounceLoader color="#36d7b7" />;
+        return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
     }
 
     if (user) {

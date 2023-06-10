@@ -11,8 +11,6 @@ const Feedback = () => {
     const { isDarkMode } = useContext(ThemeContext);
     const [userEmail, setUserEmail] = useState("");
     const [feedback, setFeedback] = useState("");
-
-    console.log(userEmail, feedback);
     return (
         <div className="flex flex-cols md:flex-row justify-between items-center gap-20 relative md:static">
             <Slide duration={1000} direction="left" className="w-full md:w-1/2 opacity-30 md:opacity-100">

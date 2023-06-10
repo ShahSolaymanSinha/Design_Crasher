@@ -30,6 +30,7 @@ const Login = () => {
                     email: loggedInUser.email,
                     emailVerified: loggedInUser.emailVerified,
                     photo: loggedInUser.photoURL,
+                    role: "student",
                 };
 
                 instance
@@ -54,6 +55,7 @@ const Login = () => {
                     email: loggedInUser.email,
                     emailVerified: loggedInUser.emailVerified,
                     photo: loggedInUser.photoURL,
+                    role: "student",
                 };
 
                 instance

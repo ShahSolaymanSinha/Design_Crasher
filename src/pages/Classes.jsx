@@ -1,25 +1,61 @@
+/* eslint-disable react/prop-types */
 import ClassCompo from "../components/ClassCompo";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { instance } from "../utils/axiosInstance";
+import { AuthContext } from "../providers/AuthProvider";
+import { BounceLoader } from "react-spinners";
+import { useQuery } from "@tanstack/react-query";
 
-const Classes = () => {
-    const [classes, setClasses] = useState([]);
+const Classes = ({ style }) => {
+    const { user } = useContext(AuthContext);
 
-    useEffect(() => {
-        instance
-            .get("/classes")
-            .then((response) => setClasses(response.data))
-            .catch((error) => console.log(error));
-    }, []);
+    const {
+        data: classes,
+        isLoading,
+        isError,
+        error,
+    } = useQuery({
+        queryKey: ["classesKey"],
+        queryFn: async () => {
+            const response = await instance.get("/classes");
+            return response.data;
+        },
+    });
+
+    const { data: role } = useQuery({
+        queryKey: ["roleKey"],
+        queryFn: async () => {
+            const response = await instance.post("/getRole", { email: user?.email });
+            return response.data;
+        },
+    });
+
+    useEffect(() => {}, []);
+
+    if (!role) {
+        return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
+    }
+
+    if (isLoading) {
+        return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
+    }
+
+    if (isError) {
+        console.log(error);
+    }
+
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+        <div className={`${style}`}>
             {classes?.map((classData) => (
                 <ClassCompo
                     key={classData._id}
+                    id={classData._id}
+                    role={role}
+                    user={user}
                     image={classData?.["course-info"]?.["cover-image"]}
                     name={classData?.["course-info"]?.name}
                     instructor={classData?.["instructor-info"]?.name}
-                    availableSeats={600000 - classData?.["course-info"]?.enrolled}
+                    availableSeats={classData?.["course-info"]?.totalSeats - classData?.["course-info"]?.enrolled}
                     price={classData?.["course-info"]?.price}></ClassCompo>
             ))}
         </div>
