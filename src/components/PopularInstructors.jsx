@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import { Pagination, Autoplay } from "swiper";
+import { Pagination } from "swiper";
 import { ThemeContext } from "../providers/ThemeProvider";
 import { instance } from "../utils/axiosInstance";
 import { Slide } from "react-awesome-reveal";
@@ -77,11 +77,7 @@ const PopularInstructors = () => {
                         pagination={{
                             clickable: true,
                         }}
-                        autoplay={{
-                            delay: 3000,
-                            disableOnInteraction: false,
-                        }}
-                        modules={[Pagination, Autoplay]}
+                        modules={[Pagination]}
                         className="mySwiper">
                         {instructorsData?.slice(0, 6).map((instructorData) => {
                             return (

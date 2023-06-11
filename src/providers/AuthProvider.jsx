@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
                     })
                     .catch((err) => console.log(err));
             } else {
-                setRole(null);
+                setRole("anonymous");
             }
 
             setLoading(false);

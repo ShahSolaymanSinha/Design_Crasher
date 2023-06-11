@@ -66,7 +66,7 @@ const BannerWithImageAndText = () => {
                 mousewheel={true}
                 keyboard={true}
                 autoplay={{
-                    delay: 7000,
+                    delay: 10000,
                     disableOnInteraction: false,
                 }}
                 onAutoplayTimeLeft={onAutoplayTimeLeft}

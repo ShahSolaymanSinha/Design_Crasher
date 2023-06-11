@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import { Pagination, Autoplay } from "swiper";
+import { Pagination } from "swiper";
 import { ThemeContext } from "../providers/ThemeProvider";
 import { instance } from "../utils/axiosInstance";
 import { Slide } from "react-awesome-reveal";
@@ -78,11 +78,7 @@ const PopularClasses = () => {
                         pagination={{
                             clickable: true,
                         }}
-                        autoplay={{
-                            delay: 5000,
-                            disableOnInteraction: false,
-                        }}
-                        modules={[Pagination, Autoplay]}
+                        modules={[Pagination]}
                         className="mySwiper">
                         {classesData?.slice(0, 6).map((classData) => {
                             return (

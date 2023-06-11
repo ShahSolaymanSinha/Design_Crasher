@@ -3,6 +3,7 @@ import { instance } from "../utils/axiosInstance";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyClasses = () => {
     const { user } = useContext(AuthContext);
@@ -18,6 +19,14 @@ const MyClasses = () => {
 
     const handleUpdateClass = (myClass) => {
         navigate("/dashboard/instructor/addAClass", { state: myClass });
+    };
+
+    const handleShowFeedback = (feedback) => {
+        Swal.fire({
+            icon: "info",
+            title: "Feedback From Design Crasher",
+            text: `${feedback}`,
+        });
     };
 
     return (
@@ -38,6 +47,7 @@ const MyClasses = () => {
                     </thead>
                     <tbody>
                         {myClasses?.map((myClass, index) => {
+                            console.log(myClass);
                             return (
                                 <tr key={myClass._id}>
                                     <th>{index + 1}</th>
@@ -48,7 +58,9 @@ const MyClasses = () => {
                                     <td>{myClass?.["courseInfo"]?.price}</td>
                                     <td className="flex gap-2">
                                         {myClass?.courseInfo?.status == "declined" && (
-                                            <button className={`btn btn-primary bg-transparent border-none outline-none w-fit`}>
+                                            <button
+                                                onClick={() => handleShowFeedback(myClass?.feedBack)}
+                                                className={`btn btn-primary bg-transparent border-none outline-none w-fit`}>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"

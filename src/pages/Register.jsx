@@ -111,7 +111,8 @@ const Register = () => {
 
                 if (password == confirmPassword) {
                     // CALLING AN IMG-BB API TO UPLOAD THE IMAGE
-                    fetch(`https://api.imgbb.com/1/upload?expiration=600&key=729a3660c3b989ca2e15db51e7491169`, {
+
+                    fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_IMGBBAPIKEY}`, {
                         method: "POST",
                         body: formData,
                     })

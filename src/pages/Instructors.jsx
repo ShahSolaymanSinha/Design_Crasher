@@ -10,7 +10,7 @@ const Instructors = () => {
         isError,
         error,
     } = useQuery({
-        queryKey: ["allInstructors"],
+        queryKey: ["allInstructorsKey"],
         queryFn: async () => {
             const response = await instance.get("/instructors");
             return response.data;
@@ -25,7 +25,7 @@ const Instructors = () => {
         console.log(error);
     }
 
-    // console.log(instructors);
+    console.log(instructors);
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
