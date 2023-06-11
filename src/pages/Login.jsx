@@ -11,10 +11,12 @@ import { motion } from "framer-motion";
 import { AuthContext } from "../providers/AuthProvider";
 import { instance } from "../utils/axiosInstance";
 import Swal from "sweetalert2";
+import { BounceLoader } from "react-spinners";
 
 const Login = () => {
     const navigate = useNavigate();
     const { signInWithGoogle, signInWithGithub, signIn } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     const { register, handleSubmit } = useForm();
     const { isDarkMode } = useContext(ThemeContext);
@@ -72,6 +74,7 @@ const Login = () => {
 
     const onSubmit = (data) => {
         const { email, password } = data;
+        setLoading(true);
         signIn(email, password).catch((error) => {
             console.log(error.message);
             if (error.message == "Firebase: Error (auth/wrong-password).") {
@@ -90,7 +93,16 @@ const Login = () => {
                 });
             }
         });
+
+        navigate("/", { replace: true });
+
+        setLoading(false);
     };
+
+    if (loading) {
+        return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
+    }
+
     return (
         <motion.div initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <div className="h-screen w-full flex justify-between items-center gap-20">

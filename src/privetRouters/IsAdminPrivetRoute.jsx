@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { BounceLoader } from "react-spinners";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { BounceLoader } from "react-spinners";
 import { Navigate } from "react-router-dom";
 
-const IsStudentPrivetRoute = ({ children }) => {
+const IsAdminPrivetRoute = ({ children }) => {
     const { user, loading, role } = useContext(AuthContext);
 
     if (loading) {
@@ -15,10 +15,10 @@ const IsStudentPrivetRoute = ({ children }) => {
         return <Navigate to="/login" replace={true}></Navigate>;
     }
 
-    if (role == "student") {
+    if (role == "admin") {
         return children;
     }
     return <Navigate to={"/"} replace={true}></Navigate>;
 };
 
-export default IsStudentPrivetRoute;
+export default IsAdminPrivetRoute;

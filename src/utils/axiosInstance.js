@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://a12-server-side-livid.vercel.app",
+    baseURL: "http://localhost:5000",
     headers: {
         "Content-Type": "application/json",
     },

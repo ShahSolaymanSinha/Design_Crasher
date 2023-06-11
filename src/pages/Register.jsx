@@ -97,8 +97,6 @@ const Register = () => {
         const { name, email, password, confirmPassword } = data;
         const passwordTestingRegEx = /^(?=.*[A-Z])(?=.*\W).{6,}$/;
 
-        console.log(data);
-
         if (!passwordTestingRegEx.test(password) || !passwordTestingRegEx.test(confirmPassword)) {
             Swal.fire({
                 icon: "error",

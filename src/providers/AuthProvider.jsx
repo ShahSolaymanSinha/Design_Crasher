@@ -56,11 +56,10 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log("auth state change", currentUser);
             setUser(currentUser);
-            setEmail(currentUser.email);
-            setPhotoURL(currentUser.photoURL);
-            setLoading(false);
+            setEmail(currentUser?.email);
+            setPhotoURL(currentUser?.photoURL);
 
-            if (currentUser.email) {
+            if (currentUser) {
                 instance
                     .post("/getRole", { email: currentUser?.email })
                     .then((response) => {
@@ -71,6 +70,8 @@ const AuthProvider = ({ children }) => {
             } else {
                 setRole(null);
             }
+
+            setLoading(false);
         });
 
         return () => {

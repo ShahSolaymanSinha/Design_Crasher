@@ -11,6 +11,10 @@ import SelectedClasses from "../components/SelectedClasses";
 import IsStudentPrivetRoute from "../privetRouters/IsStudentPrivetRoute";
 import AddAClass from "../components/AddAClass";
 import MyClasses from "../components/MyClasses";
+import IsInstructorPrivetRoute from "../privetRouters/IsInstructorPrivetRoute";
+import IsAdminPrivetRoute from "../privetRouters/IsAdminPrivetRoute";
+import ManageUsers from "../components/ManageUsers";
+import ManageClasses from "../components/ManageClasses";
 
 const router = createBrowserRouter([
     {
@@ -52,15 +56,43 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "/dashboard/student/enrolledClasses",
-                        element: <Classes></Classes>,
+                        element: (
+                            <IsStudentPrivetRoute>
+                                <Classes></Classes>
+                            </IsStudentPrivetRoute>
+                        ),
                     },
                     {
                         path: "/dashboard/instructor/addAClass",
-                        element: <AddAClass></AddAClass>,
+                        element: (
+                            <IsInstructorPrivetRoute>
+                                <AddAClass></AddAClass>
+                            </IsInstructorPrivetRoute>
+                        ),
                     },
                     {
                         path: "/dashboard/instructor/myClasses",
-                        element: <MyClasses></MyClasses>,
+                        element: (
+                            <IsInstructorPrivetRoute>
+                                <MyClasses></MyClasses>
+                            </IsInstructorPrivetRoute>
+                        ),
+                    },
+                    {
+                        path: "/dashboard/admin/manageUsers",
+                        element: (
+                            <IsAdminPrivetRoute>
+                                <ManageUsers></ManageUsers>
+                            </IsAdminPrivetRoute>
+                        ),
+                    },
+                    {
+                        path: "/dashboard/admin/manageClasses",
+                        element: (
+                            <IsAdminPrivetRoute>
+                                <ManageClasses></ManageClasses>
+                            </IsAdminPrivetRoute>
+                        ),
                     },
                 ],
             },

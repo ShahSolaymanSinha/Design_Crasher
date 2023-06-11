@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../providers/AuthProvider";
 import { ThemeContext } from "../providers/ThemeProvider";
 import { instance } from "../utils/axiosInstance";
+import { useLocation } from "react-router-dom";
 
 const AddAClass = () => {
     const date = new Date();
@@ -11,10 +12,14 @@ const AddAClass = () => {
     const { user } = useContext(AuthContext);
     const { isDarkMode } = useContext(ThemeContext);
 
+    const location = useLocation();
+    const { state } = location;
+
     const {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
     } = useForm();
 
     const onSubmit = ({ className, classDescription, classImage, availableSeats, price }) => {
@@ -37,11 +42,31 @@ const AddAClass = () => {
             },
         };
 
-        instance
-            .post("/classUpload", { classData: classData })
-            .then((res) => console.log(res.data))
-            .catch((error) => console.log(error));
+        if (state) {
+            console.log(classData);
+            instance
+                .patch("/updateClass", { classData: { ...classData, id: state._id } })
+                .then((response) => console.log(response.data))
+                .catch((error) => console.log(error));
+        } else {
+            instance
+                .post("/classUpload", { classData: classData })
+                .then((res) => console.log(res.data))
+                .catch((error) => console.log(error));
+        }
     };
+
+    useEffect(() => {
+        console.log(state);
+        if (state) {
+            setValue("className", state.courseInfo.name);
+            setValue("classDescription", state.courseInfo.description);
+            setValue("classImage", state.courseInfo.coverImage);
+            setValue("availableSeats", state?.["courseInfo"]?.totalSeats - state?.["courseInfo"]?.enrolled);
+            setValue("price", state.courseInfo.price);
+        }
+    }, [setValue, state]);
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto p-4 bg-transparent rounded shadow-lg mt-5">
             <div className="mb-4">

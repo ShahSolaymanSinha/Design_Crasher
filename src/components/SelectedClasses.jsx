@@ -8,15 +8,18 @@ const SelectedClasses = () => {
 
     useEffect(() => {
         const existingData = localStorage.getItem("SelectedClasses");
-        instance
-            .post("/getSelectedClass", { selectedClassesId: existingData })
-            .then((res) => {
-                console.log(res.data);
-                setSelectedClasses(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+
+        if (existingData) {
+            instance
+                .post("/getSelectedClass", { selectedClassesId: existingData })
+                .then((res) => {
+                    console.log(res.data);
+                    setSelectedClasses(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     }, []);
 
     if (selectedClasses == []) {
@@ -27,7 +30,7 @@ const SelectedClasses = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-5 mx-5 gap-20">
             {selectedClasses?.map((singleClass) => {
                 return (
-                    <div key={singleClass._id}>
+                    <div key={singleClass?._id}>
                         <div className={`card w-80 bg-base-100 shadow-xl mx-auto h-full`}>
                             <LazyLoadImage src={singleClass?.["courseInfo"]?.["coverImage"]} alt={singleClass?.["courseInfo"]?.name}></LazyLoadImage>
                             <div className="card-body">

@@ -86,7 +86,7 @@ const PopularClasses = () => {
                         className="mySwiper">
                         {classesData?.slice(0, 6).map((classData) => {
                             return (
-                                <SwiperSlide className="my-7" key={classData?.["courseInfo"]?.["name"]}>
+                                <SwiperSlide className="my-7" key={classData?._id}>
                                     <div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
                                         <LazyLoadImage
                                             src={classData?.["courseInfo"]?.["coverImage"]}

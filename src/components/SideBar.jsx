@@ -14,12 +14,16 @@ const SideBar = ({ sideBar1, sideBar2 }) => {
             setSideBar1Link("/dashboard/student/selectedClasses");
         } else if (sideBar1 == "My Classes") {
             setSideBar1Link("/dashboard/instructor/myClasses");
+        } else if (sideBar1 == "Manage Users") {
+            setSideBar1Link("/dashboard/admin/manageUsers");
         }
 
         if (sideBar2 == "My Enrolled Classes") {
             setSideBar2Link("/dashboard/student/enrolledClasses");
         } else if (sideBar2 == "Add A Class") {
             setSideBar2Link("/dashboard/instructor/addAClass");
+        } else if (sideBar2 == "Manage Classes") {
+            setSideBar2Link("/dashboard/admin/manageClasses");
         }
     }, [sideBar1, sideBar2]);
 

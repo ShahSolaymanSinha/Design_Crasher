@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { instance } from "../utils/axiosInstance";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const MyClasses = () => {
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const { data: myClasses } = useQuery({
         queryKey: ["myClasses", user?.email],
@@ -13,6 +15,10 @@ const MyClasses = () => {
             return response.data;
         },
     });
+
+    const handleUpdateClass = (myClass) => {
+        navigate("/dashboard/instructor/addAClass", { state: myClass });
+    };
 
     return (
         <div className=" mt-5 mx-5 gap-20">
@@ -58,7 +64,9 @@ const MyClasses = () => {
                                                 </svg>
                                             </button>
                                         )}
-                                        <button className={`btn btn-primary bg-transparent border-none outline-none w-fit`}>
+                                        <button
+                                            onClick={() => handleUpdateClass(myClass)}
+                                            className={`btn btn-primary bg-transparent border-none outline-none w-fit`}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
