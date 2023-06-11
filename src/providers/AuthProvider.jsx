@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 
 import { app } from "../firebase/firebase.config";
+import { instance } from "../utils/axiosInstance";
 
 export const AuthContext = createContext(null);
 
@@ -21,7 +22,10 @@ const githubAuthProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [photoURL, setPhotoURL] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [role, setRole] = useState(null);
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -52,7 +56,21 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log("auth state change", currentUser);
             setUser(currentUser);
+            setEmail(currentUser.email);
+            setPhotoURL(currentUser.photoURL);
             setLoading(false);
+
+            if (currentUser.email) {
+                instance
+                    .post("/getRole", { email: currentUser?.email })
+                    .then((response) => {
+                        console.log(response.data);
+                        setRole(response.data);
+                    })
+                    .catch((err) => console.log(err));
+            } else {
+                setRole(null);
+            }
         });
 
         return () => {
@@ -62,6 +80,9 @@ const AuthProvider = ({ children }) => {
 
     const authInfo = {
         user,
+        email,
+        photoURL,
+        role,
         loading,
         createUser,
         signIn,

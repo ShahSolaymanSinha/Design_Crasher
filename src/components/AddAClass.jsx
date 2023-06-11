@@ -7,7 +7,6 @@ import { instance } from "../utils/axiosInstance";
 const AddAClass = () => {
     const date = new Date();
     const formattedDate = date.toLocaleString("en-US", { month: "long", year: "numeric" });
-    console.log(formattedDate);
 
     const { user } = useContext(AuthContext);
     const { isDarkMode } = useContext(ThemeContext);

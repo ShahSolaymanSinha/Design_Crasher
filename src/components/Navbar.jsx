@@ -7,6 +7,7 @@ import { BounceLoader } from "react-spinners";
 
 const Navbar = () => {
     const { user, loading } = useContext(AuthContext);
+
     const { isDarkMode, toggleTheme } = useContext(ThemeContext);
     const activeRouteStyle = "bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent font-bold";
     const [currentPathname, setCurrentPathname] = useState(window.location.pathname);

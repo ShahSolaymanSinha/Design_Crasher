@@ -85,17 +85,19 @@ const PopularInstructors = () => {
                         className="mySwiper">
                         {instructorsData?.slice(0, 6).map((instructorData) => {
                             return (
-                                <SwiperSlide className="my-7" key={instructorData?.["name"]}>
+                                <SwiperSlide className="my-7" key={instructorData?.instructorInfo?.["name"]}>
                                     <div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
-                                        <LazyLoadImage src={instructorData?.["image"]} alt={instructorData?.["name"]}></LazyLoadImage>
+                                        <LazyLoadImage
+                                            src={instructorData?.instructorInfo?.["image"]}
+                                            alt={instructorData?.instructorInfo?.["name"]}></LazyLoadImage>
                                         <div className="card-body">
                                             <div>
-                                                <h2 className="card-title">{instructorData?.["name"]}</h2>
-                                                <p>{instructorData?.["email"]}</p>
+                                                <h2 className="card-title">{instructorData?.instructorInfo?.["name"]}</h2>
+                                                <p>{instructorData?.instructorInfo?.["email"]}</p>
                                             </div>
                                             <div className="card-actions">
                                                 <button className={`btn btn-primary w-full ${isDarkMode && "bg-[#00AC61]"} outline-none border-none`}>
-                                                    Enroll Now
+                                                    View Classes
                                                 </button>
                                             </div>
                                         </div>

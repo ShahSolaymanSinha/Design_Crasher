@@ -10,6 +10,7 @@ import DashBoardPrivetRoute from "../privetRouters/DashBoardPrivetRoute";
 import SelectedClasses from "../components/SelectedClasses";
 import IsStudentPrivetRoute from "../privetRouters/IsStudentPrivetRoute";
 import AddAClass from "../components/AddAClass";
+import MyClasses from "../components/MyClasses";
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "/dashboard/instructor/myClasses",
+                        element: <MyClasses></MyClasses>,
                     },
                 ],
             },

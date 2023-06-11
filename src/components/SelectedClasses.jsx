@@ -1,29 +1,26 @@
 import { instance } from "../utils/axiosInstance";
-import { useQuery } from "@tanstack/react-query";
 import LazyLoadImage from "./LazyLoadImage";
 import { BounceLoader } from "react-spinners";
+import { useEffect, useState } from "react";
 
 const SelectedClasses = () => {
-    const {
-        data: selectedClasses,
-        isLoading,
-        isError,
-        error,
-    } = useQuery({
-        queryKey: ["selectedClasses"],
-        queryFn: async () => {
-            const existingData = localStorage.getItem("SelectedClasses");
-            const response = await instance.post("/getSelectedClass", { selectedClassesId: existingData });
-            return response.data;
-        },
-    });
+    const [selectedClasses, setSelectedClasses] = useState([]);
 
-    if (isLoading) {
+    useEffect(() => {
+        const existingData = localStorage.getItem("SelectedClasses");
+        instance
+            .post("/getSelectedClass", { selectedClassesId: existingData })
+            .then((res) => {
+                console.log(res.data);
+                setSelectedClasses(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    if (selectedClasses == []) {
         return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
-    }
-
-    if (isError) {
-        console.log(error);
     }
 
     return (

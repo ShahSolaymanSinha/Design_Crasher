@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import ClassCompo from "../components/ClassCompo";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { instance } from "../utils/axiosInstance";
 import { AuthContext } from "../providers/AuthProvider";
 import { BounceLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
 
 const Classes = ({ style }) => {
-    const { user } = useContext(AuthContext);
+    const { user, role } = useContext(AuthContext);
 
     const {
         data: classes,
@@ -21,16 +21,6 @@ const Classes = ({ style }) => {
             return response.data;
         },
     });
-
-    const { data: role } = useQuery({
-        queryKey: ["role"],
-        queryFn: async () => {
-            const response = await instance.post("/getRole", { email: user?.email });
-            return response.data;
-        },
-    });
-
-    useEffect(() => {}, []);
 
     if (!role) {
         return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
