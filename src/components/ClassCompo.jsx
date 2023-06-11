@@ -34,7 +34,7 @@ const ClassCompo = ({ id, image, name, instructor, availableSeats, price, role, 
                         <p>Instructor: {instructor}</p>
                         <p>Available Seats: {availableSeats}</p>
                     </div>
-                    <p className="text-green-400">Price: {price}</p>
+                    <p className="text-green-400">Price: ${price}</p>
                     <div className="card-actions">
                         <button
                             onClick={handleSelectClass}
