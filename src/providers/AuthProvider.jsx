@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
     const [email, setEmail] = useState(null);
     const [photoURL, setPhotoURL] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState("anonymous");
 
     const createUser = (email, password) => {
         setLoading(true);
