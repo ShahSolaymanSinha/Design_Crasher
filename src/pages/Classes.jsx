@@ -23,7 +23,7 @@ const Classes = ({ style }) => {
     });
 
     const { data: role } = useQuery({
-        queryKey: ["roleKey"],
+        queryKey: ["role"],
         queryFn: async () => {
             const response = await instance.post("/getRole", { email: user?.email });
             return response.data;

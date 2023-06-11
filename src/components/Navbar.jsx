@@ -26,7 +26,7 @@ const Navbar = () => {
             </li>
 
             {user && (
-                <li className={currentPathname == "/dashboard" ? `${activeRouteStyle}` : ""}>
+                <li className={currentPathname.includes("/dashboard") ? `${activeRouteStyle}` : ""}>
                     <Link to={"/dashboard"}>Dashboard</Link>
                 </li>
             )}

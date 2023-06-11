@@ -10,7 +10,7 @@ const Instructors = () => {
         isError,
         error,
     } = useQuery({
-        queryKey: ["instructorsKey"],
+        queryKey: ["instructors"],
         queryFn: async () => {
             const response = await instance.get("/instructors");
             return response.data;

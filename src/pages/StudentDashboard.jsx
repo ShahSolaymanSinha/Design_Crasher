@@ -2,7 +2,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
 
 const StudentDashboard = () => {
-    console.log(location.pathname);
     return (
         <div className="flex">
             <Navigate to={"/dashboard/student/selectedClasses"}></Navigate>

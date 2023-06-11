@@ -1,14 +1,12 @@
+/* eslint-disable react/prop-types */
+import { useQuery } from "@tanstack/react-query";
+import { instance } from "../utils/axiosInstance";
+import { BounceLoader } from "react-spinners";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { instance } from "../utils/axiosInstance";
-import AdminDashboard from "../pages/AdminDashboard";
-import InstructorDashboard from "../pages/InstructorDashboard";
-import StudentDashboard from "../pages/StudentDashboard";
-import { BounceLoader } from "react-spinners";
 import { Navigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 
-const DashBoardPrivetRoute = () => {
+const IsStudentPrivetRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
 
     const {
@@ -38,17 +36,10 @@ const DashBoardPrivetRoute = () => {
         console.log(error);
     }
 
-    if (role == "admin") {
-        return <AdminDashboard></AdminDashboard>;
-    }
-
-    if (role == "instructor") {
-        return <InstructorDashboard></InstructorDashboard>;
-    }
-
     if (role == "student") {
-        return <StudentDashboard></StudentDashboard>;
+        return children;
     }
+    return <Navigate to={"/"} replace={true}></Navigate>;
 };
 
-export default DashBoardPrivetRoute;
+export default IsStudentPrivetRoute;

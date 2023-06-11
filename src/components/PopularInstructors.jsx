@@ -26,7 +26,7 @@ const PopularInstructors = () => {
         isError,
         error,
     } = useQuery({
-        queryKey: ["instructorsDataKey"],
+        queryKey: ["popularInstructors"],
         queryFn: async () => {
             const response = await instance.get("/popularInstructors");
             return response.data;
