@@ -86,15 +86,15 @@ const PopularClasses = () => {
                         className="mySwiper">
                         {classesData?.slice(0, 6).map((classData) => {
                             return (
-                                <SwiperSlide className="my-7" key={classData?.["course-info"]?.["name"]}>
+                                <SwiperSlide className="my-7" key={classData?.["courseInfo"]?.["name"]}>
                                     <div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
                                         <LazyLoadImage
-                                            src={classData?.["course-info"]?.["cover-image"]}
-                                            alt={classData?.["course-info"]?.["name"]}></LazyLoadImage>
+                                            src={classData?.["courseInfo"]?.["coverImage"]}
+                                            alt={classData?.["courseInfo"]?.["name"]}></LazyLoadImage>
                                         <div className="card-body">
                                             <div>
-                                                <h2 className="card-title">{classData?.["course-info"]?.["name"]}</h2>
-                                                <p>{classData?.["course-info"]?.["description"]}</p>
+                                                <h2 className="card-title">{classData?.["courseInfo"]?.["name"]}</h2>
+                                                <p>{classData?.["courseInfo"]?.["description"]}</p>
                                             </div>
                                             <div className="card-actions">
                                                 <button className={`btn btn-primary w-full ${isDarkMode && "bg-[#00AC61]"} outline-none border-none`}>

@@ -13,8 +13,15 @@ const AddAClass = () => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = ({ className, classImage, availableSeats, price }) => {
+        const classData = {
+            className,
+            classImage,
+            availableSeats,
+            price,
+        };
+
+        console.log(classData);
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto p-4 bg-transparent rounded shadow-lg mt-5">

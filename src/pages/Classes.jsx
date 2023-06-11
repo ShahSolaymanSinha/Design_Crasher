@@ -15,7 +15,7 @@ const Classes = ({ style }) => {
         isError,
         error,
     } = useQuery({
-        queryKey: ["classesKey"],
+        queryKey: ["classes"],
         queryFn: async () => {
             const response = await instance.get("/classes");
             return response.data;
@@ -52,11 +52,11 @@ const Classes = ({ style }) => {
                     id={classData._id}
                     role={role}
                     user={user}
-                    image={classData?.["course-info"]?.["cover-image"]}
-                    name={classData?.["course-info"]?.name}
-                    instructor={classData?.["instructor-info"]?.name}
-                    availableSeats={classData?.["course-info"]?.totalSeats - classData?.["course-info"]?.enrolled}
-                    price={classData?.["course-info"]?.price}></ClassCompo>
+                    image={classData?.["courseInfo"]?.["coverImage"]}
+                    name={classData?.["courseInfo"]?.name}
+                    instructor={classData?.["instructorInfo"]?.name}
+                    availableSeats={classData?.["courseInfo"]?.totalSeats - classData?.["courseInfo"]?.enrolled}
+                    price={classData?.["courseInfo"]?.price}></ClassCompo>
             ))}
         </div>
     );
