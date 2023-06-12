@@ -18,7 +18,11 @@ const auth = getAuth(app);
 
 const Register = () => {
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const { isDarkMode } = useContext(ThemeContext);
     const [isEyeOpen, setIsEyeOpen] = useState(false);
     const [selectedFileName, setSelectedFileName] = useState(null);
@@ -238,6 +242,7 @@ const Register = () => {
                             {...register("name", { required: true })}
                             className="bg-[#EDF2F6] w-full h-10 rounded-md text-[#22CB5C] p-1"
                         />
+                        {errors.name && <span className="text-red-500">This field is required</span>}
                         <br />
 
                         <span className="mb-5 block"></span>
@@ -252,6 +257,7 @@ const Register = () => {
                             {...register("email", { required: true })}
                             className="bg-[#EDF2F6] w-full h-10 rounded-md text-[#22CB5C] p-1"
                         />
+                        {errors.email && <span className="text-red-500">This field is required</span>}
                         <br />
 
                         <span className="mb-5 block"></span>
@@ -265,6 +271,7 @@ const Register = () => {
                                 {...register("password", { required: true })}
                                 className="bg-[#EDF2F6] w-full h-10 rounded-md text-[#22CB5C] p-1"
                             />
+                            {errors.password && <span className="text-red-500">This field is required</span>}
                             <img
                                 width={32}
                                 onClick={() => setIsEyeOpen(!isEyeOpen)}
@@ -285,6 +292,7 @@ const Register = () => {
                                 {...register("confirmPassword", { required: true })}
                                 className="bg-[#EDF2F6] w-full h-10 rounded-md text-[#22CB5C] p-1"
                             />
+                            {errors.confirmPassword && <span className="text-red-500">This field is required</span>}
                             <img
                                 width={32}
                                 onClick={() => setIsEyeOpen(!isEyeOpen)}
@@ -302,9 +310,16 @@ const Register = () => {
                                 className="px-4 py-2 bg-gradient-to-r from-[#FF9F4A] to-[#FF3C83] text-white rounded-md cursor-pointer">
                                 Upload Image
                             </label>
-                            <input id="image-upload" type="file" className="hidden" {...register("image")} onChange={handleImageChange} />
+                            <input
+                                id="image-upload"
+                                type="file"
+                                className="hidden"
+                                {...register("image", { required: true })}
+                                onChange={handleImageChange}
+                            />
                             {selectedFileName && <div className="ml-4 text-gray-500">{truncateStart(selectedFileName, 27)}</div>}
                         </div>
+                        {errors.image && <span className="text-red-500">This field is required</span>}
 
                         <div className="flex justify-between">
                             <p>

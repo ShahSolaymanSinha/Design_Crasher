@@ -9,6 +9,11 @@ const Home = () => {
     const { logOut } = useContext(AuthContext);
     return (
         <div>
+            <div className="w-full flex justify-center">
+                <button className="btn bg-red-600 mx-auto" onClick={() => logOut()}>
+                    LogOut
+                </button>
+            </div>
             <BannerWithImageAndText></BannerWithImageAndText>
             <span className="mt-20 block"></span>
             <PopularClasses></PopularClasses>
@@ -16,12 +21,6 @@ const Home = () => {
             <PopularInstructors></PopularInstructors>
             <span className="mt-40 block"></span>
             <Feedback></Feedback>
-
-            <div className="w-full flex justify-center">
-                <button className="btn bg-red-600 mx-auto" onClick={() => logOut()}>
-                    LogOut
-                </button>
-            </div>
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import notFoundImage from "../assets/notFound.svg";
 
 const ErrorPage = () => {
     const navigate = useNavigate();
@@ -9,9 +10,13 @@ const ErrorPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gray-100">
+        <div className="flex flex-col md:flex-row items-center justify-evenly h-screen bg-gray-100">
+            <div>
+                <img src={notFoundImage} alt="" />
+            </div>
+
             <div className="text-center">
-                <h1 className="text-6xl bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent font-bold">404</h1>
+                <h1 className="text-6xl bg-gradient-to-r from-[#EFF54D] to-[#00AC61] bg-clip-text text-transparent font-bold animate-bounce">404</h1>
                 <p className="text-2xl text-gray-700">Page Not Found</p>
                 <p className="text-gray-500">The page you are looking for does not exist.</p>
                 <br />

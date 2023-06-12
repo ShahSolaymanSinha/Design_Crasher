@@ -26,7 +26,7 @@ const ClassCompo = ({ id, image, name, instructor, availableSeats, price, role, 
 
     return (
         <div>
-            <div className={`card w-96 bg-base-100 shadow-xl mx-auto h-full ${availableSeats <= 0 && "bg-[#E90064] text-black"}`}>
+            <div className={`card w-96 bg-base-100 shadow-xl mx-auto h-full ${availableSeats <= 0 ? "bg-[#E90064] text-black" : ""}`}>
                 <LazyLoadImage src={image} alt={name}></LazyLoadImage>
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>

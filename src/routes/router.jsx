@@ -15,6 +15,8 @@ import IsInstructorPrivetRoute from "../privetRouters/IsInstructorPrivetRoute";
 import IsAdminPrivetRoute from "../privetRouters/IsAdminPrivetRoute";
 import ManageUsers from "../components/ManageUsers";
 import ManageClasses from "../components/ManageClasses";
+import PaymentPage from "../pages/PaymentPage";
+import EnrolledClasses from "../components/EnrolledClasses";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +45,10 @@ const router = createBrowserRouter([
                 element: <Login></Login>,
             },
             {
+                path: "/payment",
+                element: <PaymentPage></PaymentPage>,
+            },
+            {
                 path: "/dashboard",
                 element: <DashBoardPrivetRoute></DashBoardPrivetRoute>,
                 children: [
@@ -58,7 +64,7 @@ const router = createBrowserRouter([
                         path: "/dashboard/student/enrolledClasses",
                         element: (
                             <IsStudentPrivetRoute>
-                                <Classes></Classes>
+                                <EnrolledClasses></EnrolledClasses>
                             </IsStudentPrivetRoute>
                         ),
                     },

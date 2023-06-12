@@ -75,26 +75,33 @@ const Login = () => {
     const onSubmit = (data) => {
         const { email, password } = data;
         setLoading(true);
-        signIn(email, password).catch((error) => {
-            console.log(error.message);
-            if (error.message == "Firebase: Error (auth/wrong-password).") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Wrong Password",
-                });
-            }
+        signIn(email, password)
+            .then(() => {
+                instance
+                    .post("/saveUser", data)
+                    .then((res) => console.log(res.data))
+                    .catch((error) => console.log(error));
 
-            if (error.message == "Firebase: Error (auth/user-not-found).") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "User Doesn't Exists",
-                });
-            }
-        });
+                navigate("/", { replace: true });
+            })
+            .catch((error) => {
+                console.log(error.message);
+                if (error.message == "Firebase: Error (auth/wrong-password).") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Wrong Password",
+                    });
+                }
 
-        navigate("/", { replace: true });
+                if (error.message == "Firebase: Error (auth/user-not-found).") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "User Doesn't Exists",
+                    });
+                }
+            });
 
         setLoading(false);
     };
