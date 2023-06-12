@@ -6,6 +6,7 @@ import router from "./routes/router";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import AuthProvider from "./providers/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "sweetalert2/dist/sweetalert2.css";
 
 // Create a client
 const queryClient = new QueryClient();
