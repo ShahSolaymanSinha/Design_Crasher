@@ -5,9 +5,9 @@ const instance = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
-    timeout: 5000,
-    retry: 5, // Number of retries
-    retryDelay: 1000, // Delay between retries in milliseconds
+    // timeout: 5000,
+    // retry: 5, // Number of retries
+    // retryDelay: 1000, // Delay between retries in milliseconds
 });
 
 instance.interceptors.request.use(

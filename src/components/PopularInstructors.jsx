@@ -9,103 +9,109 @@ import "swiper/css/pagination";
 
 import { Pagination } from "swiper";
 import { ThemeContext } from "../providers/ThemeProvider";
-import { instance } from "../utils/axiosInstance";
 import { Slide } from "react-awesome-reveal";
 import LazyLoadImage from "./LazyLoadImage";
 import { useQuery } from "@tanstack/react-query";
 import { BounceLoader } from "react-spinners";
 
 const PopularInstructors = () => {
-    const { isDarkMode } = useContext(ThemeContext);
-    const [slidesPerViewCustom, setSlidesPerViewCustom] = useState(0);
-    const [screenWidth, setScreenWidth] = useState(0);
+	const { isDarkMode } = useContext(ThemeContext);
+	const [slidesPerViewCustom, setSlidesPerViewCustom] = useState(0);
+	const [screenWidth, setScreenWidth] = useState(0);
 
-    const {
-        data: instructorsData,
-        isLoading,
-        isError,
-        error,
-    } = useQuery({
-        queryKey: ["popularInstructors"],
-        queryFn: async () => {
-            const response = await instance.get("/popularInstructors");
-            return response.data;
-        },
-    });
+	const {
+		data: instructorsData,
+		isLoading,
+		isError,
+		error,
+	} = useQuery({
+		queryKey: ["popularInstructors"],
+		queryFn: async () => {
+			const response = await fetch("https://a12-server-side-livid.vercel.app/popularInstructors").then(res => res.json());
+			return response;
+		},
+	});
 
-    useEffect(() => {
-        if (screenWidth < 640) {
-            setSlidesPerViewCustom(1);
-        } else if (screenWidth <= 768) {
-            setSlidesPerViewCustom(1);
-        } else if (screenWidth <= 1024) {
-            setSlidesPerViewCustom(2);
-        } else {
-            setSlidesPerViewCustom(3);
-        }
-    }, [screenWidth]);
+	useEffect(() => {
+		if (screenWidth < 640) {
+			setSlidesPerViewCustom(1);
+		} else if (screenWidth <= 768) {
+			setSlidesPerViewCustom(1);
+		} else if (screenWidth <= 1024) {
+			setSlidesPerViewCustom(2);
+		} else {
+			setSlidesPerViewCustom(3);
+		}
+	}, [screenWidth]);
 
-    useEffect(() => {
-        const handleResize = () => setScreenWidth(window.innerWidth);
+	useEffect(() => {
+		const handleResize = () => setScreenWidth(window.innerWidth);
 
-        handleResize();
-        window.addEventListener("resize", handleResize);
+		handleResize();
+		window.addEventListener("resize", handleResize);
 
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
-    if (isLoading) {
-        return <BounceLoader className="w-screen h-screen mx-auto my-auto" color="#36d7b7" />;
-    }
+	if (isLoading) {
+		return (
+			<BounceLoader
+				className="w-screen h-screen mx-auto my-auto"
+				color="#36d7b7"
+			/>
+		);
+	}
 
-    if (isError) {
-        console.log(error);
-    }
+	if (isError) {
+		console.log(error);
+	}
 
-    return (
-        <div>
-            <div>
-                <h1 className="text-6xl text-center mb-5 text-[#50BB5D]">
-                    Our Popular Instructors<span className={`text-[#D31A50] ${isDarkMode && "text-[#FF3C83]"}`}>.</span>
-                </h1>
-            </div>
-            <Slide direction="left">
-                <div className="mx-2 my-2">
-                    <Swiper
-                        slidesPerView={slidesPerViewCustom}
-                        spaceBetween={30}
-                        pagination={{
-                            clickable: true,
-                        }}
-                        modules={[Pagination]}
-                        className="mySwiper">
-                        {instructorsData?.slice(0, 6).map((instructorData) => {
-                            return (
-                                <SwiperSlide className="my-7" key={instructorData?.instructorInfo?.["name"]}>
-                                    <div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
-                                        <LazyLoadImage
-                                            src={instructorData?.instructorInfo?.["image"]}
-                                            alt={instructorData?.instructorInfo?.["name"]}></LazyLoadImage>
-                                        <div className="card-body">
-                                            <div>
-                                                <h2 className="card-title">{instructorData?.instructorInfo?.["name"]}</h2>
-                                                <p>{instructorData?.instructorInfo?.["email"]}</p>
-                                            </div>
-                                            <div className="card-actions">
-                                                <button className={`btn btn-primary w-full ${isDarkMode && "bg-[#00AC61]"} outline-none border-none`}>
-                                                    View Classes
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                            );
-                        })}
-                    </Swiper>
-                </div>
-            </Slide>
-        </div>
-    );
+	return (
+		<div>
+			<div>
+				<h1 className="text-6xl text-center mb-5 text-[#50BB5D]">
+					Our Popular Instructors<span className={`text-[#D31A50] ${isDarkMode && "text-[#FF3C83]"}`}>.</span>
+				</h1>
+			</div>
+			<Slide direction="left">
+				<div className="mx-2 my-2">
+					<Swiper
+						slidesPerView={slidesPerViewCustom}
+						spaceBetween={30}
+						pagination={{
+							clickable: true,
+						}}
+						modules={[Pagination]}
+						className="mySwiper">
+						{instructorsData?.slice(0, 6).map(instructorData => {
+							return (
+								<SwiperSlide
+									className="my-7"
+									key={instructorData?.instructorInfo?.["name"]}>
+									<div className={`card ${screenWidth < 640 ? "w-92" : "w-96"} bg-base-100 shadow-xl h-full`}>
+										<LazyLoadImage
+											src={instructorData?.instructorInfo?.["image"]}
+											alt={instructorData?.instructorInfo?.["name"]}></LazyLoadImage>
+										<div className="card-body">
+											<div>
+												<h2 className="card-title">{instructorData?.instructorInfo?.["name"]}</h2>
+												<p>{instructorData?.instructorInfo?.["email"]}</p>
+											</div>
+											<div className="card-actions">
+												<button className={`btn btn-primary w-full ${isDarkMode && "bg-[#00AC61]"} outline-none border-none`}>
+													View Classes
+												</button>
+											</div>
+										</div>
+									</div>
+								</SwiperSlide>
+							);
+						})}
+					</Swiper>
+				</div>
+			</Slide>
+		</div>
+	);
 };
 
 export default PopularInstructors;
